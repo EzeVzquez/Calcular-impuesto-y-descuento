@@ -37,6 +37,12 @@ let precioConImpuesto;
 let precioConDescuento;
 const handleClickEnviarValor = (e) => {
   e.preventDefault();
+  
+  if(parseInt($inputImpuestoDelUsuario.value) > 100){
+     alert("no se puede poner un impuesto más de 100%")
+    return
+  }
+   
   const persona = crearObjeto(
     $inputNombreDelUsuario.value,
     $inputApellidoDelUsuario.value
