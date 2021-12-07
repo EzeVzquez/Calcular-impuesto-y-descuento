@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form class="form__container" action="" id="inputvalorIngresadoDelUsuario">
+      <div>
+        <label class="form__label" for="name">
+          Nombre:
+          <input
+            class="form__input"
+            id="inputNombreDelUsuario"
+            type="text"
+            name="nombre"
+            placeholder="Ingrese su nombre"
+          />
+        </label>
+        <label class="form__label" for="name">
+          Apellido:
+          <input
+            class="form__input"
+            id="inputApellidoDelUsuario"
+            type="text"
+            name="apellido"
+            placeholder="Ingrese su apellido"
+          />
+        </label>
+      </div>
+
+      <div>
+        <label class="form__label" for="precio">
+          Precio:
+          <input
+            class="form__input"
+            type="text"
+            name="precio"
+            id="inputPrecioDelUsuario"
+            placeholder="Ingrese un Valor"
+          />
+        </label>
+        <label class="form__label" for="impuesto">
+          Impuesto:
+          <input
+            class="form__input"
+            type="text"
+            name="IvaUsuario"
+            id="inputImpuestoDelUsuario"
+            placeholder="Ingrese un valor de impuesto"
+          />
+        </label>
+        <button class="form__button" type="button" id="buttonEnviarValor">
+          calcular
+        </button>
+        <div class="form__text--container">
+          <p class="form__text">Su valor de Impuesto aplicado es:</p>
+          <p class="form__text" id="valorUsuarioConImpuesto"></p>
+        </div>
+      </div>
+
+      <div>
+        <label class="form__label" for="descuento">
+          Descuento a aplicar:
+          <input
+            class="form__input"
+            type="text"
+            id="inputDescuentoSobrePrecioFinal"
+            placeholder="Ingrese un descuento"
+          />
+        </label>
+        <button class="form__button" type="button" id="buttonAplicarDescuento">
+          Aplicar
+        </button>
+        <div class="form__text--container">
+          <p class="form__text">El valor final con descuento es:</p>
+          <p class="fomr__text" id="valorFinalConDescuento"></p>
+        </div>
+      </div>
+
+      <div class="data-save__container">
+        <p>Datos del usuario con el impuesto aplicado:</p>
+        <p class="data-save__text" id="datosDelUsuario"></p>
+      </div>
+
+    </form>
+    <div>
+      <p id="textNumerosOrdenados"></p>
+    </div>
+
+
+
+  </body>
+  <script src="script.js"></script>
+</html>
