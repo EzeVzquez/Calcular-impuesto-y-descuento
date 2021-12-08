@@ -35,6 +35,7 @@ let impuestos = []
 
 let precioConImpuesto;
 let precioConDescuento;
+
 const handleClickEnviarValor = (e) => {
   e.preventDefault();
   
@@ -53,11 +54,11 @@ const handleClickEnviarValor = (e) => {
     calcularImpuesto($inputImpuestoDelUsuario.value)
   );
 
-  $textPrecioConImpuesto.innerHTML = `$${precioConImpuesto}`;
-  $textDatosDelUsuario.innerHTML = `${persona.obtenerDatos()} $${precioConImpuesto}`;
-
   impuestos.push(precioConImpuesto);
   impuestos.sort(function (a, b) { return a - b });
+
+  $textPrecioConImpuesto.innerHTML = `$${precioConImpuesto}`;
+  $textDatosDelUsuario.innerHTML = `${persona.obtenerDatos()} $${precioConImpuesto}`;
   $textNumerosOrdenados.innerHTML = `$${impuestos.join(" $")}`;
 };
 
