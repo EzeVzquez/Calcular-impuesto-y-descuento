@@ -41,21 +41,24 @@ const handleClickEnviarValor = (e) => {
   if(parseInt($inputImpuestoDelUsuario.value) > 100){
      alert("no se puede poner un impuesto más de 100%")
     return
-  }
-   
+  };
+
   const persona = crearObjeto(
     $inputNombreDelUsuario.value,
     $inputApellidoDelUsuario.value
   );
+
   precioConImpuesto = calcularPrecioFinal(
     $inputPrecioDelUsuario.value,
     calcularImpuesto($inputImpuestoDelUsuario.value)
   );
+
   $textPrecioConImpuesto.innerHTML = `$${precioConImpuesto}`;
+  $textDatosDelUsuario.innerHTML = `${persona.obtenerDatos()} $${precioConImpuesto}`;
+
   impuestos.push(precioConImpuesto);
   impuestos.sort(function (a, b) { return a - b });
-  $textNumerosOrdenados.innerHTML = `$${impuestos.join(" $")}`
-  $textDatosDelUsuario.innerHTML = `${persona.obtenerDatos()} $${precioConImpuesto}`;
+  $textNumerosOrdenados.innerHTML = `$${impuestos.join(" $")}`;
 };
 
 const handelClickEnviarDescuento = () => {
