@@ -20,58 +20,53 @@
             placeholder="Ingrese su nombre"
           />
         </label>
-        <label class="form__label" for="name">
-          Apellido:
-          <input
-            class="form__input"
-            id="inputApellidoDelUsuario"
-            type="text"
-            name="apellido"
-            placeholder="Ingrese su apellido"
-          />
-        </label>
+        <label class="form__label" for="name"></label>
+        Apellido:
+        <input
+          class="form__input"
+          id="inputApellidoDelUsuario"
+          type="text"
+          name="apellido"
+          placeholder="Ingrese su apellido"
+        />
       </div>
-
       <div>
-        <label class="form__label" for="precio">
-          Precio:
-          <input
-            class="form__input"
-            type="text"
-            name="precio"
-            id="inputPrecioDelUsuario"
-            placeholder="Ingrese un Valor"
-          />
-        </label>
-        <label class="form__label" for="impuesto">
-          Impuesto:
-          <input
-            class="form__input"
-            type="text"
-            name="IvaUsuario"
-            id="inputImpuestoDelUsuario"
-            placeholder="Ingrese un valor de impuesto"
-          />
-        </label>
+        <label class="form__label" for="precio"></label>
+        Precio:
+        <input
+          class="form__input"
+          type="text"
+          name="precio"
+          id="inputPrecioDelUsuario"
+          placeholder="Ingrese un Valor"
+        />
+        <label class="form__label" for="impuesto"></label>
+        Impuesto:
+        <input
+          class="form__input"
+          type="text"
+          name="IvaUsuario"
+          id="inputImpuestoDelUsuario"
+          placeholder="Ingrese un valor de impuesto"
+        />
+        <div id="errorValorImpuesto"></div>
         <button class="form__button" type="button" id="buttonEnviarValor">
           calcular
         </button>
         <div class="form__text--container">
           <p class="form__text">Su valor de Impuesto aplicado es:</p>
-          <p class="form__text" id="valorUsuarioConImpuesto"></p>
+          <p class="form__text" id="valorUsuarioConImpuesto">
         </div>
       </div>
-
       <div>
-        <label class="form__label" for="descuento">
-          Descuento a aplicar:
-          <input
-            class="form__input"
-            type="text"
-            id="inputDescuentoSobrePrecioFinal"
-            placeholder="Ingrese un descuento"
-          />
-        </label>
+        <label class="form__label" for="descuento"></label>
+        Descuento a aplicar:
+        <input
+          class="form__input"
+          type="text"
+          id="inputDescuentoSobrePrecioFinal"
+          placeholder="Ingrese un descuento"
+        />
         <button class="form__button" type="button" id="buttonAplicarDescuento">
           Aplicar
         </button>
@@ -80,19 +75,18 @@
           <p class="fomr__text" id="valorFinalConDescuento"></p>
         </div>
       </div>
-
       <div class="data-save__container">
-        <p>Datos del usuario con el impuesto aplicado:</p>
-        <p class="data-save__text" id="datosDelUsuario"></p>
+        <p>Apreta el boton para mostar los datos del usuario con los impuestos aplicados</p>
+        <button id="mostarUsuarioConImpuestos">Mostar</button>
+        <div id="datosUsuarioFinal"></div>
+        <div id="datosImpuestoFinal"></div>
+        <p  id="parrafoError"></p>
       </div>
-
     </form>
     <div>
+      <p>Numero de los impuestos ordenados de menor a mayor</p>
       <p id="textNumerosOrdenados"></p>
     </div>
-
-
-
   </body>
   <script src="script.js"></script>
 </html>
