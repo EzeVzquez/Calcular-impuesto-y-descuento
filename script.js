@@ -48,22 +48,29 @@ const crearPersona = (nombre, apellido) => {
 let impuestos = [];
 let personas = [];
 
+const init = () => {
+  personas = JSON.parse(localStorage.getItem("personas")) || [];
+  impuestos = JSON.parse(localStorage.getItem("impuestos")) || [];
+};
+
+init();
+
 let precioConImpuesto;
 let precioConDescuento;
 
 const pintarFinal = (personas, impuestos) => {
-  if (
-    ($textDatosUsuarioFinal.children.length == 0) |
-    ($textDatosImpuestoFinal.children.length == 0)
-  ) {
+  const hayPersonas =
+    (($textDatosUsuarioFinal.children.length === 0) &&
+    ($textDatosImpuestoFinal.children.length === 0));
+  if (hayPersonas) {
     personas.forEach((usuario, indice) => {
       $textDatosUsuarioFinal.innerHTML += `
-          <p class="usuario${indice}">${usuario.nombre} ${usuario.apellido}</p>  
+        <p class="usuario${indice}">${usuario.nombre} ${usuario.apellido}</p>  
         `;
     });
     impuestos.forEach((valor, indice) => {
       $textDatosImpuestoFinal.innerHTML += `
-          <p class="impuesto${indice}">$${valor}</p>
+        <p class="impuesto${indice}">$${valor}</p>
         `;
     });
   } else {
@@ -76,8 +83,8 @@ const handleClickEnviarValor = (e) => {
 
   if (parseInt($inputImpuestoDelUsuario.value) > 100) {
     $textErrorValorImpuesto.innerHTML += `
-    <p>No se puede poner un impuesto del mas de %100</p>    
-    `;
+      <p>No se puede poner un impuesto del mas de %100</p>    
+      `;
     return;
   }
 
@@ -119,7 +126,6 @@ const handelClickEnviarDescuento = () => {
 };
 
 const handleClickMostarUsuarioConImpuestosFinal = (e) => {
-  e.preventDefault();
   pintarFinal(personas, impuestos);
 };
 
