@@ -38,7 +38,7 @@ const calcularCantidadDescuento = (precioConImpuesto, descuento) =>
 const precioFinalConDescuento = (precioConImpuesto, descuentoSobrePrecio) =>
   precioConImpuesto - descuentoSobrePrecio;
 
-const crearObjeto = (nombre, apellido) => {
+const crearPersona = (nombre, apellido) => {
   return {
     nombre,
     apellido,
@@ -46,30 +46,26 @@ const crearObjeto = (nombre, apellido) => {
 };
 
 let impuestos = [];
-let personasArray = [];
+let personas = [];
 
 let precioConImpuesto;
 let precioConDescuento;
 
-const pintarFinal = (personasArray, impuestos) => {
+const pintarFinal = (personas, impuestos) => {
   if (
     ($textDatosUsuarioFinal.children.length == 0) |
     ($textDatosImpuestoFinal.children.length == 0)
   ) {
-    // const pintarUsuario = (personasArray) => {
-    personasArray.forEach((usuario, indice) => {
+    personas.forEach((usuario, indice) => {
       $textDatosUsuarioFinal.innerHTML += `
           <p class="usuario${indice}">${usuario.nombre} ${usuario.apellido}</p>  
         `;
     });
-    // };
-    // const pintarImpuestos = (impuestos) => {
     impuestos.forEach((valor, indice) => {
       $textDatosImpuestoFinal.innerHTML += `
           <p class="impuesto${indice}">$${valor}</p>
         `;
     });
-    // };
   } else {
     $textParrafoError.innerText = "No des mas click al boton mostrar";
   }
@@ -85,7 +81,7 @@ const handleClickEnviarValor = (e) => {
     return;
   }
 
-  const persona = crearObjeto(
+  const persona = crearPersona(
     $inputNombreDelUsuario.value,
     $inputApellidoDelUsuario.value
   );
@@ -100,9 +96,9 @@ const handleClickEnviarValor = (e) => {
     return a - b;
   });
 
-  personasArray.push(persona);
+  personas.push(persona);
 
-  localStorage.setItem("personas", JSON.stringify(personasArray));
+  localStorage.setItem("personas", JSON.stringify(personas));
   localStorage.setItem("impuestos", JSON.stringify(impuestos));
 
   $textPrecioConImpuesto.innerHTML = `$${precioConImpuesto}`;
@@ -124,9 +120,7 @@ const handelClickEnviarDescuento = () => {
 
 const handleClickMostarUsuarioConImpuestosFinal = (e) => {
   e.preventDefault();
-  pintarFinal(personasArray, impuestos);
-  // pintarUsuario(personasArray);
-  // pintarImpuestos(impuestos);
+  pintarFinal(personas, impuestos);
 };
 
 $buttonEnviarValor.addEventListener(`click`, handleClickEnviarValor);
