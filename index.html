@@ -24,21 +24,25 @@
           <div class="mb-3">
             <label for="Precio" class="form-label">Coloque el descuento "%" que quiere aplicar</label>
             <input class="form-control" id="descuento" type="number" placeholder="Ingrese el descuento " />
+            <div id="errorValorDescuento"></div>
           </div>
           <button class="btn btn-primary mb-3" id="enviarDatos">Enviar datos</button>
+          <div id="errorInputVacios"></div>
         </form>
       </div>
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">dinero Ingresado</th>
-            <th scope="col">Dinero con impuesto aplicado</th>
-            <th scope="col">Dinero con descuento sobre impuesto</th>
-          </tr>
-        </thead>
-        <tbody id="mostarDatosEnTabla">
-        </tbody>
-      </table>
+      <div class="container">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">dinero Ingresado</th>
+              <th scope="col">Dinero con impuesto aplicado</th>
+              <th scope="col">Dinero con descuento sobre impuesto</th>
+            </tr>
+          </thead>
+          <tbody id="mostarDatosEnTabla">
+          </tbody>
+        </table>
+      </div>
 
 </body>
 <!-- JavaScript Bundle with Popper -->

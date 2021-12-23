@@ -3,7 +3,9 @@ let $inputCantidadDinero = document.getElementById("precio");
 let $inputCantidadImpuesto = document.getElementById("impuesto");
 let $textErrorValorImpuesto = document.getElementById("errorValorImpuesto");
 let $inputCantidadDescuento = document.getElementById("descuento");
+let $textErrorValorDescuento = document.getElementById("errorValorDescuento")
 let $buttonEnviarDatos = document.getElementById("enviarDatos");
+let $textErrorInputVacios = document.getElementById("errorInputVacios")
 let $rowMostarDatos = document.getElementById("mostarDatosEnTabla");
 
 const calcularImpuestos = (valorImpuesto) => 1 + valorImpuesto / 100;
@@ -17,7 +19,7 @@ const calcularDescuentoSobreImpuesto = (dineroConImpuesto, descuento) =>
 const precioFinal = (dineroConImpuesto, descuentoSobrePrecio) =>
   dineroConImpuesto - descuentoSobrePrecio;
 
-const crearPrecios = (dinero, impuesto, descuento) => {
+const crearRegistro = (dinero, impuesto, descuento) => {
   return {
     dinero,
     impuesto,
@@ -27,61 +29,78 @@ const crearPrecios = (dinero, impuesto, descuento) => {
 
 let valoresFinal = [];
 
-const init = () => {
-  valoresFinal = JSON.parse(localStorage.getItem("valoresFinal")) || [];
-};
-
-init();
-
-let precioConImpuesto;
-let precioConDescuento;
-
-const pintarRow = (valoresFinal) => {
+const pintarRows = (valoresFinal) => {
+  $rowMostarDatos.innerHTML = "";
   valoresFinal.forEach((valor, indice) => {
     $rowMostarDatos.innerHTML += `     
-      <tr id="valores${indice}">
-      <td id="dinero${indice}">$${valor.dinero}</td>
-      <td id="impuesto${indice}">$${valor.impuesto}</td>
-      <td id="descuento${indice}">$${valor.descuento}</td>
-      </tr>
-      `;
+    <tr id="valores${indice}">
+    <td id="dinero${indice}">$${valor.dinero}</td>
+    <td id="impuesto${indice}">$${valor.impuesto}</td>
+    <td id="descuento${indice}">$${valor.descuento}</td>
+    </tr>
+    `;
   });
 };
 
 const handleClickEnviar = (e) => {
   e.preventDefault();
-
+  
+  const hayCamposVacios = (!$inputCantidadDinero.value && !$inputCantidadImpuesto.value && !$inputCantidadDescuento.value);
+  
+  if(hayCamposVacios) {
+    $textErrorInputVacios.innerHTML = `
+    <p>Por favor completar todos los datos antes de precionar el boton</p>
+    `;
+    return;
+  }
+  
   if (parseInt($inputCantidadImpuesto.value) > 100) {
-    $textErrorValorImpuesto.innerHTML += `
-          <p>No se puede poner un impuesto del mas de %100</p>    
-          `;
+    $textErrorValorImpuesto.innerHTML = `
+    <p>No se puede poner un impuesto del mas de 100%</p>    
+    `;
     return;
   }
 
-  precioConImpuesto = calcularPrecioConImpuesto(
-    $inputCantidadDinero.value,
+  if (parseInt($inputCantidadDescuento.value) > 100) {
+    $textErrorValorDescuento.innerHTML = `
+    <p>No se puede poner un descuento del mas de 100%</p>    
+    `;
+    return;
+  }
+  
+  let cantidadDeDinero = parseInt($inputCantidadDinero.value)
+  
+  let precioConImpuesto = calcularPrecioConImpuesto(
+    cantidadDeDinero,
     calcularImpuestos($inputCantidadImpuesto.value)
-  );
-
-  precioConDescuento = precioFinal(
-    precioConImpuesto,
-    calcularDescuentoSobreImpuesto(
+    );
+    
+    let precioConDescuento = precioFinal(
       precioConImpuesto,
-      $inputCantidadDescuento.value
-    )
-  );
+      calcularDescuentoSobreImpuesto(
+        precioConImpuesto,
+        $inputCantidadDescuento.value
+        )
+        );
+        
+        const registro = crearRegistro(
+          cantidadDeDinero,
+          precioConImpuesto,
+          precioConDescuento
+          );
+          
+          valoresFinal.push(registro);
+          localStorage.setItem("precios", JSON.stringify(valoresFinal));
+          $formImpuestos.reset();
+          pintarRows(valoresFinal);
+          
+        };
+        
+        const init = () => {
+          valoresFinal = JSON.parse(localStorage.getItem("precios")) || [];
+        };
+        
+        init();
 
-  const precios = crearPrecios(
-    $inputCantidadDinero.value,
-    precioConImpuesto,
-    precioConDescuento
-  );
-
-  valoresFinal.push(precios);
-  localStorage.setItem("precios", JSON.stringify(valoresFinal));
-  $formImpuestos.reset();
-
-  pintarRow(valoresFinal);
-};
-
-$buttonEnviarDatos.addEventListener(`click`, handleClickEnviar);
+        $buttonEnviarDatos.addEventListener(`click`, handleClickEnviar);
+        
