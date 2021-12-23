@@ -1,56 +1,34 @@
-let $formValorIngresadoDelUsuario = document.getElementById(
-  "inputvalorIngresadoDelUsuario"
-);
-let $inputApellidoDelUsuario = document.getElementById(
-  "inputApellidoDelUsuario"
-);
-let $inputNombreDelUsuario = document.getElementById("inputNombreDelUsuario");
-let $inputPrecioDelUsuario = document.getElementById("inputPrecioDelUsuario");
-let $inputImpuestoDelUsuario = document.getElementById(
-  "inputImpuestoDelUsuario"
-);
-let $textPrecioConImpuesto = document.getElementById("valorUsuarioConImpuesto");
-let $buttonEnviarValor = document.getElementById("buttonEnviarValor");
-let $inputDescuentoSobrePrecioFinal = document.getElementById(
-  "inputDescuentoSobrePrecioFinal"
-);
+let $formImpuestos = document.getElementById("formImpuestos");
+let $inputCantidadDinero = document.getElementById("precio");
+let $inputCantidadImpuesto = document.getElementById("impuesto");
 let $textErrorValorImpuesto = document.getElementById("errorValorImpuesto");
-let $buttonAplicarDescuento = document.getElementById("buttonAplicarDescuento");
-let $textValorFinalConDescuento = document.getElementById(
-  "valorFinalConDescuento"
-);
-let $textNumerosOrdenados = document.getElementById("textNumerosOrdenados");
-let $textDatosUsuarioFinal = document.getElementById("datosUsuarioFinal");
-let $textDatosImpuestoFinal = document.getElementById("datosImpuestoFinal");
-let $buttonMostarUsuarioConImpuestos = document.getElementById(
-  "mostarUsuarioConImpuestos"
-);
-let $textParrafoError = document.getElementById("parrafoError");
+let $inputCantidadDescuento = document.getElementById("descuento");
+let $buttonEnviarDatos = document.getElementById("enviarDatos");
+let $rowMostarDatos = document.getElementById("mostarDatosEnTabla");
 
-const calcularImpuesto = (valorImpuesto) => 1 + valorImpuesto / 100;
+const calcularImpuestos = (valorImpuesto) => 1 + valorImpuesto / 100;
 
-const calcularPrecioFinal = (valorUsuario, valorIvaUsuario) =>
-  valorUsuario * valorIvaUsuario;
+const calcularPrecioConImpuesto = (dineroIngresado, impuestosIngresado) =>
+  dineroIngresado * impuestosIngresado;
 
-const calcularCantidadDescuento = (precioConImpuesto, descuento) =>
-  precioConImpuesto * (descuento / 100);
+const calcularDescuentoSobreImpuesto = (dineroConImpuesto, descuento) =>
+  dineroConImpuesto * (descuento / 100);
 
-const precioFinalConDescuento = (precioConImpuesto, descuentoSobrePrecio) =>
-  precioConImpuesto - descuentoSobrePrecio;
+const precioFinal = (dineroConImpuesto, descuentoSobrePrecio) =>
+  dineroConImpuesto - descuentoSobrePrecio;
 
-const crearPersona = (nombre, apellido) => {
+const crearPrecios = (dinero, impuesto, descuento) => {
   return {
-    nombre,
-    apellido,
+    dinero,
+    impuesto,
+    descuento,
   };
 };
 
-let impuestos = [];
-let personas = [];
+let valoresFinal = [];
 
 const init = () => {
-  personas = JSON.parse(localStorage.getItem("personas")) || [];
-  impuestos = JSON.parse(localStorage.getItem("impuestos")) || [];
+  valoresFinal = JSON.parse(localStorage.getItem("valoresFinal")) || [];
 };
 
 init();
@@ -58,82 +36,52 @@ init();
 let precioConImpuesto;
 let precioConDescuento;
 
-const pintarFinal = (personas, impuestos) => {
-  const hayPersonas =
-    (($textDatosUsuarioFinal.children.length === 0) &&
-    ($textDatosImpuestoFinal.children.length === 0));
-  if (hayPersonas) {
-    personas.forEach((usuario, indice) => {
-      $textDatosUsuarioFinal.innerHTML += `
-        <p class="usuario${indice}">${usuario.nombre} ${usuario.apellido}</p>  
-        `;
-    });
-    impuestos.forEach((valor, indice) => {
-      $textDatosImpuestoFinal.innerHTML += `
-        <p class="impuesto${indice}">$${valor}</p>
-        `;
-    });
-  } else {
-    $textParrafoError.innerText = "No des mas click al boton mostrar";
-  }
+const pintarRow = (valoresFinal) => {
+  valoresFinal.forEach((valor, indice) => {
+    $rowMostarDatos.innerHTML += `     
+      <tr id="valores${indice}">
+      <td id="dinero${indice}">$${valor.dinero}</td>
+      <td id="impuesto${indice}">$${valor.impuesto}</td>
+      <td id="descuento${indice}">$${valor.descuento}</td>
+      </tr>
+      `;
+  });
 };
 
-const handleClickEnviarValor = (e) => {
+const handleClickEnviar = (e) => {
   e.preventDefault();
 
-  if (parseInt($inputImpuestoDelUsuario.value) > 100) {
+  if (parseInt($inputCantidadImpuesto.value) > 100) {
     $textErrorValorImpuesto.innerHTML += `
-      <p>No se puede poner un impuesto del mas de %100</p>    
-      `;
+          <p>No se puede poner un impuesto del mas de %100</p>    
+          `;
     return;
   }
 
-  const persona = crearPersona(
-    $inputNombreDelUsuario.value,
-    $inputApellidoDelUsuario.value
+  precioConImpuesto = calcularPrecioConImpuesto(
+    $inputCantidadDinero.value,
+    calcularImpuestos($inputCantidadImpuesto.value)
   );
 
-  precioConImpuesto = calcularPrecioFinal(
-    $inputPrecioDelUsuario.value,
-    calcularImpuesto($inputImpuestoDelUsuario.value)
-  );
-
-  impuestos.push(precioConImpuesto);
-  impuestos.sort(function (a, b) {
-    return a - b;
-  });
-
-  personas.push(persona);
-
-  localStorage.setItem("personas", JSON.stringify(personas));
-  localStorage.setItem("impuestos", JSON.stringify(impuestos));
-
-  $textPrecioConImpuesto.innerHTML = `$${precioConImpuesto}`;
-  $textNumerosOrdenados.innerHTML = `$${impuestos.join(" $")}`;
-
-  $formValorIngresadoDelUsuario.reset();
-};
-
-const handelClickEnviarDescuento = () => {
-  precioConDescuento = precioFinalConDescuento(
+  precioConDescuento = precioFinal(
     precioConImpuesto,
-    calcularCantidadDescuento(
+    calcularDescuentoSobreImpuesto(
       precioConImpuesto,
-      $inputDescuentoSobrePrecioFinal.value
+      $inputCantidadDescuento.value
     )
   );
-  $textValorFinalConDescuento.innerHTML = `$${precioConDescuento}`;
+
+  const precios = crearPrecios(
+    $inputCantidadDinero.value,
+    precioConImpuesto,
+    precioConDescuento
+  );
+
+  valoresFinal.push(precios);
+  localStorage.setItem("precios", JSON.stringify(valoresFinal));
+  $formImpuestos.reset();
+
+  pintarRow(valoresFinal);
 };
 
-const handleClickMostarUsuarioConImpuestosFinal = (e) => {
-  pintarFinal(personas, impuestos);
-};
-
-$buttonEnviarValor.addEventListener(`click`, handleClickEnviarValor);
-
-$buttonAplicarDescuento.addEventListener(`click`, handelClickEnviarDescuento);
-
-$buttonMostarUsuarioConImpuestos.addEventListener(
-  `click`,
-  handleClickMostarUsuarioConImpuestosFinal
-);
+$buttonEnviarDatos.addEventListener(`click`, handleClickEnviar);
