@@ -67,6 +67,10 @@ const handleClickEnviar = (e) => {
     `;
     return;
   }
+
+  $textErrorInputVacios.innerHTML = `` 
+  $textErrorValorDescuento.innerHTML = `` 
+  $textErrorValorImpuesto.innerHTML = ``
   
   let cantidadDeDinero = parseInt($inputCantidadDinero.value)
   
