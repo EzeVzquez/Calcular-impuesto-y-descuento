@@ -1,12 +1,16 @@
-let $formImpuestos = document.getElementById("formImpuestos");
-let $inputCantidadDinero = document.getElementById("precio");
-let $inputCantidadImpuesto = document.getElementById("impuesto");
-let $textErrorValorImpuesto = document.getElementById("errorValorImpuesto");
-let $inputCantidadDescuento = document.getElementById("descuento");
-let $textErrorValorDescuento = document.getElementById("errorValorDescuento")
-let $buttonEnviarDatos = document.getElementById("enviarDatos");
-let $textErrorInputVacios = document.getElementById("errorInputVacios")
-let $rowMostarDatos = document.getElementById("mostarDatosEnTabla");
+const $formImpuestos = document.getElementById("formImpuestos");
+const $inputCantidadDinero = document.getElementById("precio");
+const $inputCantidadImpuesto = document.getElementById("impuesto");
+const $textErrorValorImpuesto = document.getElementById("errorValorImpuesto");
+const $inputCantidadDescuento = document.getElementById("descuento");
+const $textErrorValorDescuento = document.getElementById("errorValorDescuento");
+const $buttonEnviarDatos = document.getElementById("enviarDatos");
+const $textErrorInputVacios = document.getElementById("errorInputVacios");
+const $rowMostarDatos = document.getElementById("mostarDatosEnTabla");
+const $textCambiarAlDolar = document.getElementById("cambiarDatosAlDolar")
+const $buttonCambiarAlDolar = document.getElementById("dolar")
+const $rowMostarDolar = document.getElementById("mostarDatosDolarEnTabla")
+
 
 const calcularImpuestos = (valorImpuesto) => 1 + valorImpuesto / 100;
 
@@ -18,6 +22,9 @@ const calcularDescuentoSobreImpuesto = (dineroConImpuesto, descuento) =>
 
 const precioFinal = (dineroConImpuesto, descuentoSobrePrecio) =>
   dineroConImpuesto - descuentoSobrePrecio;
+
+const precioDolar = (dolar, peso) =>
+  dolar * peso;
 
 const crearRegistro = (dinero, impuesto, descuento) => {
   return {
@@ -99,6 +106,21 @@ const handleClickEnviar = (e) => {
           pintarRows(valoresFinal);
           
         };
+
+        // const fetchDolar = () => {
+          fetch(`https://www.dolarsi.com/api/api.php?type=valoresprincipales`)
+          .then(Response => Response.json())
+          .then(data => {
+            let dolar =(Object.entries(data).filter(dolar => dolar[0] === "0" || dolar[0] === "1"))
+            console.log(dolar)
+            $rowMostarDolar.innerHTML += `
+            <tr id="valores">
+            <td >$${dolar[0][1].casa.venta}</td>
+            <td >$${dolar[1][1].casa.venta}</td>
+            </tr>
+            `
+          })
+
         
         const init = () => {
           valoresFinal = JSON.parse(localStorage.getItem("precios")) || [];
