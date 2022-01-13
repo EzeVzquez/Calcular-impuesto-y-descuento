@@ -107,21 +107,22 @@ const handleClickEnviar = (e) => {
   pintarRows(valoresFinal);
 };
 
-// const handleClickCalcularDolar = () => {
-fetch(`https://www.dolarsi.com/api/api.php?type=valoresprincipales`)
-  .then((response) => response.json())
-  .then((data) => {
-    let dolar = Object.entries(data).filter(
-      (dolar) => dolar[0] === "0" || dolar[0] === "1"
-    );
-    console.log(dolar);
-    $rowMostarDolar.innerHTML += `
+const handleClickCalcularDolar = () => {
+  fetch(`https://www.dolarsi.com/api/api.php?type=valoresprincipales`)
+    .then((response) => response.json())
+    .then((data) => {
+      let dolar = Object.entries(data).filter(
+        (dolar) => dolar[0] === "0" || dolar[0] === "1"
+      );
+      console.log(dolar);
+      $rowMostarDolar.innerHTML += `
             <tr id="valores">
             <td >$${dolar[0][1].casa.venta}</td>
             <td >$${dolar[1][1].casa.venta}</td>
             </tr>
             `;
-  });
+    });
+};
 
 const init = () => {
   valoresFinal = JSON.parse(localStorage.getItem("precios")) || [];
@@ -130,4 +131,4 @@ const init = () => {
 init();
 
 $buttonEnviarDatos.addEventListener(`click`, handleClickEnviar);
-// $buttonCambiarAlDolar.addEventListener(`click`,handleClickCalcularDolar)
+$buttonCambiarAlDolar.addEventListener(`click`, handleClickCalcularDolar);
