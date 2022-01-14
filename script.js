@@ -130,7 +130,7 @@ const handleClickCalcularDolar = () => {
 
       $rowMostarDolar.innerHTML += `
             <tr id="valores">
-            <td >$${(dolarOficial * precioConDescuento)}</td>
+            <td >$${(dolarOficial)}</td>
             <td >$${dolarBlue}</td>
             </tr>
             `;
