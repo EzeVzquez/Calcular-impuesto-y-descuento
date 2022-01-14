@@ -7,22 +7,6 @@ const $textErrorValorDescuento = document.getElementById("errorValorDescuento");
 const $buttonEnviarDatos = document.getElementById("enviarDatos");
 const $textErrorInputVacios = document.getElementById("errorInputVacios");
 const $rowMostarDatos = document.getElementById("mostarDatosEnTabla");
-const $textCambiarAlDolar = document.getElementById("cambiarDatosAlDolar");
-const $buttonCambiarAlDolar = document.getElementById("dolar");
-const $rowMostarDolar = document.getElementById("mostarDatosDolarEnTabla");
-
-const calcularImpuestos = (valorImpuesto) => 1 + valorImpuesto / 100;
-
-const calcularPrecioConImpuesto = (dineroIngresado, impuestosIngresado) =>
-  dineroIngresado * impuestosIngresado;
-
-const calcularDescuentoSobreImpuesto = (dineroConImpuesto, descuento) =>
-  dineroConImpuesto * (descuento / 100);
-
-const precioFinal = (dineroConImpuesto, descuentoSobrePrecio) =>
-  dineroConImpuesto - descuentoSobrePrecio;
-
-const precioDolar = (dolar, peso) => dolar * peso;
 
 const crearRegistro = (dinero, impuesto, descuento) => {
   return {
@@ -36,25 +20,78 @@ let cantidadDeDinero = [];
 let precioConImpuesto = [];
 let precioConDescuento = [];
 let valoresFinal = [];
+let dolarOficial = [];
+let dolarBlue = [];
+
+fetch(`https://www.dolarsi.com/api/api.php?type=valoresprincipales`)
+.then((response) => response.json())
+.then((data) => {
+  let dolar = Object.entries(data).filter(
+    (dolar) => dolar[0] === "0" || dolar[0] === "1"
+  );
+  dolarOficial = dolar[0][1].casa.venta.replace(",", ".");
+  dolarBlue = dolar[1][1].casa.venta.replace(",", ".");
+});
 
 const pintarRows = (valoresFinal) => {
   $rowMostarDatos.innerHTML = "";
   valoresFinal.forEach((valor, indice) => {
     $rowMostarDatos.innerHTML += `     
     <tr id="valores${indice}">
-    <td id="dinero${indice}">$${valor.dinero}</td>
-    <td id="impuesto${indice}">$${valor.impuesto}</td>
-    <td id="descuento${indice}">$${valor.descuento}</td>
+      <td id="dinero${indice}">$${valor.dinero}</td>
+      <td id="impuesto${indice}">$${valor.impuesto}</td>
+      <td id="descuento${indice}">$${valor.descuento}</td>
+      <td id="eliminar${indice}" ><button class="btn btn-danger" id="eliminarDineroCargadoButton${indice}">Eliminar</button></td>
+      <td id="cambiarADolar${indice}"><button class="btn btn-dark id="cambiarADolarButton${indice}">$USD</button></td>
     </tr>
     `;
   });
+  $rowMostarDatos.innerHTML += `
+<div>
+    <tr id="totalDatos">
+      <td id="totalDinero">Total:$${calcularTotal(valoresFinal, "dinero")}</td>
+      <td id="totalImpuestos">Total:$${calcularTotal(
+        valoresFinal,
+        "impuesto"
+      )}</td>
+      <td id="totalDescuento">Total:$${calcularTotal(
+        valoresFinal,
+        "descuento"
+      )}</td>
+    </tr>
+  </div>
+`;
 };
 
-const handleClickEnviar = (e) => {
-  e.preventDefault();
+const eliminarDineroCargado = (valoresFinal) => {
+  for (let indice in valoresFinal) {
+    document.getElementById(`eliminarDineroCargadoButton${indice}`).addEventListener("click", () => {
+      document.getElementById(`valores${indice}`).remove();
+      valoresFinal.splice(indice, 1);
+      localStorage.setItem("precios", JSON.stringify(valoresFinal));
+    });
+  };
+};
 
-  const hayCamposVacios =
-    !$inputCantidadDinero.value &&
+// const cambiarADolares = (valoresFinal) => {
+//   for (indice in valoresFinal) {
+//     document.getElementById(`cambiarADolarButton${indice}`).addEventListener("click", () => {
+//       $rowMostarDatos.innerHTML += `
+//       <tr id="valores${indice}">
+//         <td id="dinero${indice}">$${calcularPrecioDolar(dolarOficial, cantidadDeDinero)}</td>
+//         <td id="impuesto${indice}">$${calcularPrecioDolar(dolarOficial, precioConImpuesto)}</td>
+//         <td id="descuento${indice}">$${calcularPrecioDolar(dolarOficial, precioConDescuento)}</td>
+//         <td id="eliminar${indice}" ><button class="btn btn-danger" id="eliminarDineroCargadoButton${indice}">Eliminar</button></td>
+//       <td id="cambiarAPeso${indice}"><button class="btn btn-dark id="cambiarAPesoButton${indice}">$ARS</button></td>
+//       `
+//     });
+//   };
+// };
+
+const handleClickEnviar = (e) => {
+  e.preventDefault(); 
+
+  const hayCamposVacios = !$inputCantidadDinero.value &&
     !$inputCantidadImpuesto.value &&
     !$inputCantidadDescuento.value;
 
@@ -90,7 +127,7 @@ const handleClickEnviar = (e) => {
     calcularImpuestos($inputCantidadImpuesto.value)
   );
 
-   precioConDescuento = precioFinal(
+  precioConDescuento = calcularPrecioFinal(
     precioConImpuesto,
     calcularDescuentoSobreImpuesto(
       precioConImpuesto,
@@ -108,36 +145,11 @@ const handleClickEnviar = (e) => {
   localStorage.setItem("precios", JSON.stringify(valoresFinal));
   $formImpuestos.reset();
   pintarRows(valoresFinal);
+  eliminarDineroCargado(valoresFinal);
+  // cambiarADolares(valoresFinal);
 };
 
-let dolarOficial = [];
-let dolarBlue = [];
 
-const handleClickCalcularDolar = () => {
-
-  fetch(`https://www.dolarsi.com/api/api.php?type=valoresprincipales`)
-    .then((response) => response.json())
-    .then((data) => {
-      let dolar = Object.entries(data).filter(
-        (dolar) => dolar[0] === "0" || dolar[0] === "1"
-      );
-      console.log(dolar);
-
-      dolarOficial = dolar[0][1].casa.venta;
-      dolarBlue = dolar[1][1].casa.venta;
-
-      
-
-      $rowMostarDolar.innerHTML += `
-            <tr id="valores">
-            <td >$${(dolarOficial)}</td>
-            <td >$${dolarBlue}</td>
-            </tr>
-            `;
-    });
-    
-
-};
 
 const init = () => {
   valoresFinal = JSON.parse(localStorage.getItem("precios")) || [];
@@ -146,4 +158,3 @@ const init = () => {
 init();
 
 $buttonEnviarDatos.addEventListener(`click`, handleClickEnviar);
-$buttonCambiarAlDolar.addEventListener(`click`, handleClickCalcularDolar);
