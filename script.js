@@ -32,6 +32,9 @@ const crearRegistro = (dinero, impuesto, descuento) => {
   };
 };
 
+let cantidadDeDinero = [];
+let precioConImpuesto = [];
+let precioConDescuento = [];
 let valoresFinal = [];
 
 const pintarRows = (valoresFinal) => {
@@ -80,14 +83,14 @@ const handleClickEnviar = (e) => {
   $textErrorValorDescuento.innerHTML = ``;
   $textErrorValorImpuesto.innerHTML = ``;
 
-  let cantidadDeDinero = parseInt($inputCantidadDinero.value);
+  cantidadDeDinero = parseInt($inputCantidadDinero.value);
 
-  let precioConImpuesto = calcularPrecioConImpuesto(
+  precioConImpuesto = calcularPrecioConImpuesto(
     cantidadDeDinero,
     calcularImpuestos($inputCantidadImpuesto.value)
   );
 
-  let precioConDescuento = precioFinal(
+   precioConDescuento = precioFinal(
     precioConImpuesto,
     calcularDescuentoSobreImpuesto(
       precioConImpuesto,
@@ -107,7 +110,11 @@ const handleClickEnviar = (e) => {
   pintarRows(valoresFinal);
 };
 
+let dolarOficial = [];
+let dolarBlue = [];
+
 const handleClickCalcularDolar = () => {
+
   fetch(`https://www.dolarsi.com/api/api.php?type=valoresprincipales`)
     .then((response) => response.json())
     .then((data) => {
@@ -115,13 +122,21 @@ const handleClickCalcularDolar = () => {
         (dolar) => dolar[0] === "0" || dolar[0] === "1"
       );
       console.log(dolar);
+
+      dolarOficial = dolar[0][1].casa.venta;
+      dolarBlue = dolar[1][1].casa.venta;
+
+      
+
       $rowMostarDolar.innerHTML += `
             <tr id="valores">
-            <td >$${dolar[0][1].casa.venta}</td>
-            <td >$${dolar[1][1].casa.venta}</td>
+            <td >$${(dolarOficial * precioConDescuento)}</td>
+            <td >$${dolarBlue}</td>
             </tr>
             `;
     });
+    
+
 };
 
 const init = () => {
