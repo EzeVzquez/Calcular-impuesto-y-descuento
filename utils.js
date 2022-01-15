@@ -13,3 +13,11 @@ const calcularTotal = (datos, tipo) =>
   datos.reduce((acc, curr) => acc + curr[tipo], 0);
 
 const calcularPrecioDolar = (dolar, peso) => dolar * peso;
+
+const crearRegistro = (dinero, impuesto, descuento) => {
+  return {
+    dinero,
+    impuesto,
+    descuento,
+  };
+};
