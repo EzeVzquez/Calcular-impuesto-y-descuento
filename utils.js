@@ -14,6 +14,19 @@ const calcularTotal = (datos, tipo) =>
 
 const calcularPrecioDolar = (dolar, peso) => dolar * peso;
 
+const crearRow = (indice, dinero, impuesto, descuento, moneda) => {
+  return ( `     
+    <tr id="valores${indice}">
+    <td id="dinero${indice}">${moneda} $${dinero}</td>
+    <td id="impuesto${indice}">${moneda} $${impuesto}</td>
+    <td id="descuento${indice}">${moneda} $${descuento}</td>
+    <td></td>
+    <td id="eliminar${indice}" ><button class="btn btn-danger" id="eliminarDineroCargadoButton${indice}">Eliminar</button></td>
+    </tr>
+    `
+  ) 
+};
+
 const crearRegistro = (dinero, impuesto, descuento) => {
   return {
     dinero,

@@ -19,18 +19,33 @@ let valoresFinal = [];
 let dolarOficial = [];
 let dolarBlue = [];
 
-const pintarRows = (valoresFinal) => {
+// Valor moneda string ARS,USD,USDB
+
+const pintarRows = (valoresFinal, moneda) => {
   $rowMostarDatos.innerHTML = "";
   valoresFinal.forEach((valor, indice) => {
-    $rowMostarDatos.innerHTML += `     
-      <tr id="valores${indice}">
-      <td id="dinero${indice}">$${valor.dinero}</td>
-      <td id="impuesto${indice}">$${valor.impuesto}</td>
-      <td id="descuento${indice}">$${valor.descuento}</td>
-      <td></td>
-      <td id="eliminar${indice}" ><button class="btn btn-danger" id="eliminarDineroCargadoButton${indice}">Eliminar</button></td>
-      </tr>
-      `;
+
+    let precioDolarDinero;
+    let precioDolarImpuesto;
+    let precioDolarDescuento;
+
+    if(moneda == "ARS"){
+      $rowMostarDatos.innerHTML += crearRow(indice, valor.dinero, valor.impuesto, valor.descuento, moneda);
+    } else if(moneda == "USD") {
+      precioDolarDinero = calcularPrecioDolar(dolarOficial, valor.dinero);
+      precioDolarImpuesto = calcularPrecioDolar(dolarOficial, valor.impuesto);
+      precioDolarDescuento = calcularPrecioDolar(dolarOficial, valor.descuento);
+      $rowMostarDatos.innerHTML += crearRow(indice,precioDolarDinero, precioDolarImpuesto, precioDolarDescuento, moneda);
+    } else {
+      precioDolarDinero = calcularPrecioDolar(dolarBlue, valor.dinero);
+      precioDolarImpuesto = calcularPrecioDolar(dolarBlue, valor.impuesto);
+      precioDolarDescuento = calcularPrecioDolar(dolarBlue, valor.descuento);
+      $rowMostarDatos.innerHTML += crearRow(indice,precioDolarDinero, precioDolarImpuesto, precioDolarDescuento, "Blue");;
+    }
+
+
+      
+
   });
   if(valoresFinal.length){
     $rowMostarDatos.innerHTML += `
@@ -50,8 +65,7 @@ const pintarRows = (valoresFinal) => {
           </tr>
           </div>
           `;
-  }
-
+  };
   eliminarDineroCargado(valoresFinal);
 };
 
@@ -66,24 +80,6 @@ const eliminarDineroCargado = (valoresFinal) => {
     });
   }
 };
-
-
-// const cambiarADolares = (valoresFinal) => {
-  //   for (indice in valoresFinal) {
-    //     document.getElementById(`cambiarADolarButton${indice}`).addEventListener("click", () => {
-      //       $rowMostarDatos.innerHTML += `
-      //       <tr id="valores${indice}">
-      //         <td id="dinero${indice}">$${calcularPrecioDolar(dolarOficial, cantidadDeDinero)}</td>
-      //         <td id="impuesto${indice}">$${calcularPrecioDolar(dolarOficial, precioConImpuesto)}</td>
-      //         <td id="descuento${indice}">$${calcularPrecioDolar(dolarOficial, precioConDescuento)}</td>
-      //         <td id="eliminar${indice}" ><button class="btn btn-danger" id="eliminarDineroCargadoButton${indice}">Eliminar</button></td>
-      //       <td id="cambiarAPeso${indice}"><button class="btn btn-dark id="cambiarAPesoButton${indice}">$ARS</button></td>
-      //       `
-      //     });
-      //   };
-      // };
-      
-      // cambiarADolares(valoresFinal);
       
       const init = () => {
         valoresFinal = JSON.parse(localStorage.getItem("precios")) || [];
@@ -94,8 +90,8 @@ const eliminarDineroCargado = (valoresFinal) => {
           let dolar = Object.entries(data).filter(
             (dolar) => dolar[0] === "0" || dolar[0] === "1"
             );
-            dolarOficial = dolar[0][1].casa.venta.replace(",", ".");
-            dolarBlue = dolar[1][1].casa.venta.replace(",", ".");
+            dolarOficial = Number(dolar[0][1].casa.venta.replace(",", "."));
+            dolarBlue = Number(dolar[1][1].casa.venta.replace(",", "."));
           });
         };
         
@@ -103,7 +99,7 @@ const eliminarDineroCargado = (valoresFinal) => {
         
         
         // $(() => {
-        //   $buttonEnviarDatos.click(handleClickEnviar);
+        //   $buttonEnviarDatos.on("click", (handleClickEnviar);
         // });
         $buttonEnviarDatos.addEventListener(`click`, handleClickEnviar);
         // $buttonCambiarMoneda.addEventListener("click", handleClickCambiarMoneda)

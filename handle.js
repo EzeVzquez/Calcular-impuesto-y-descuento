@@ -54,13 +54,5 @@ const handleClickEnviar = (e) => {
     valoresFinal.push(registro);
     localStorage.setItem("precios", JSON.stringify(valoresFinal));
     $formImpuestos.reset();
-    pintarRows(valoresFinal)
+    pintarRows(valoresFinal, "USDB")
 };
-
-// const handleClickCambiarMoneda = () => {
-
-// };
-
-// const handleSortTable = () => {
-    
-// };
