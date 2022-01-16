@@ -1,3 +1,5 @@
+//TODO: Hacer el sort de los valores
+
 const $formImpuestos = document.getElementById("formImpuestos");
 const $inputCantidadDinero = document.getElementById("precio");
 const $inputCantidadImpuesto = document.getElementById("impuesto");

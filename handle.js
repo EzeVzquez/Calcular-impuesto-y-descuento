@@ -1,9 +1,17 @@
 const handleClickEnviar = (e) => {
     e.preventDefault();
 
-    const hayCamposVacios = !$inputCantidadDinero.value &&
-        !$inputCantidadImpuesto.value &&
+    const hayCamposVacios = 
+        !$inputCantidadDinero.value ||
+        !$inputCantidadImpuesto.value ||
         !$inputCantidadDescuento.value;
+
+    if( $inputCantidadDinero.value <= 0 || $inputCantidadImpuesto.value < 0 || $inputCantidadDescuento.value < 0 ) {
+        $textErrorInputVacios.innerHTML = `
+        <p>Por favor ingresar valores correctos</p>
+        `;
+        return;
+    }
 
     if (hayCamposVacios) {
         $textErrorInputVacios.innerHTML = `
