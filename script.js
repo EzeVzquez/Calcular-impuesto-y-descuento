@@ -7,7 +7,6 @@ const $textErrorValorDescuento = document.getElementById("errorValorDescuento");
 const $buttonEnviarDatos = document.getElementById("enviarDatos");
 const $textErrorInputVacios = document.getElementById("errorInputVacios");
 const $rowMostarDatos = document.getElementById("mostarDatosEnTabla");
-const $buttonCambiarMoneda = document.getElementById("buttonCambiarMoneda");
 const $buttonCambiarAPeso = document.getElementById("buttonCambiarAPeso");
 const $buttonCambiarADolarOficial = document.getElementById("buttonCambiarADolarOficial");
 const $buttonCambiarADolarBlue = document.getElementById("buttonCambiarADolarBlue");
@@ -40,13 +39,10 @@ const pintarRows = (valoresFinal, moneda) => {
       precioDolarDinero = calcularPrecioDolar(dolarBlue, valor.dinero);
       precioDolarImpuesto = calcularPrecioDolar(dolarBlue, valor.impuesto);
       precioDolarDescuento = calcularPrecioDolar(dolarBlue, valor.descuento);
-      $rowMostarDatos.innerHTML += crearRow(indice,precioDolarDinero, precioDolarImpuesto, precioDolarDescuento, "Blue");;
-    }
-
-
-      
-
+      $rowMostarDatos.innerHTML += crearRow(indice,precioDolarDinero, precioDolarImpuesto, precioDolarDescuento, "Blue");
+    } 
   });
+  //FIXME:arreglar total con base a la moneda
   if(valoresFinal.length){
     $rowMostarDatos.innerHTML += `
       <div>
@@ -97,9 +93,11 @@ const eliminarDineroCargado = (valoresFinal) => {
         
         init();
         
-        
         // $(() => {
         //   $buttonEnviarDatos.on("click", (handleClickEnviar);
         // });
         $buttonEnviarDatos.addEventListener(`click`, handleClickEnviar);
-        // $buttonCambiarMoneda.addEventListener("click", handleClickCambiarMoneda)
+        
+        $buttonCambiarAPeso.addEventListener("click", handleClickPeso);
+        $buttonCambiarADolarOficial.addEventListener("click", handleClickDolarOficial);
+        $buttonCambiarADolarBlue.addEventListener("click", handleClickDolarBlue);

@@ -54,5 +54,15 @@ const handleClickEnviar = (e) => {
     valoresFinal.push(registro);
     localStorage.setItem("precios", JSON.stringify(valoresFinal));
     $formImpuestos.reset();
-    pintarRows(valoresFinal, "USDB")
+    pintarRows(valoresFinal, "ARS")
 };
+
+const handleClickPeso = () => {
+    pintarRows(valoresFinal, "ARS")
+};
+const handleClickDolarOficial = () => {
+    pintarRows(valoresFinal, "USD")
+};
+const handleClickDolarBlue = () => {
+    pintarRows(valoresFinal, "USDB")
+}
