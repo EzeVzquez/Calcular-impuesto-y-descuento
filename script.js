@@ -47,17 +47,7 @@ const pintarRows = (valoresFinal, moneda) => {
   });
   //FIXME:arreglar total con base a la moneda
   if (valoresFinal.length) {
-    $rowMostarDatos.innerHTML += `
-      <div>
-      <tr id="totalDatos">
-      <td id="totalDinero">Total:$${calcularTotal(valoresFinal, "dinero")}</td>
-      <td id="totalImpuestos">Total:$${calcularTotal(valoresFinal,"impuesto")}</td>
-        <td id="totalDescuento">Total:$${calcularTotal(valoresFinal,"descuento")}</td>
-        <td class="vacio"> </td>
-        <td class="vacio"> </td>
-          </tr>
-          </div>
-          `;
+
   };
   eliminarDineroCargado(valoresFinal);
 };
@@ -87,18 +77,15 @@ const init = () => {
       dolarBlue = Number(dolar[1][1].casa.venta.replace(",", "."));
       pintarRows(valoresFinal, monedaActual)
     });
-
-
 };
 
 init();
 
 $(() => {
   $("#enviarDatos").on("click", handleClickEnviar)
-
 });
 // $buttonEnviarDatos.addEventListener(`click`, handleClickEnviar);
 
-$buttonCambiarAPeso.addEventListener("click", handleClickPeso);
-$buttonCambiarADolarOficial.addEventListener("click", handleClickDolarOficial);
-$buttonCambiarADolarBlue.addEventListener("click", handleClickDolarBlue);
+$buttonCambiarAPeso.addEventListener("click", handleClickCambiarMoneda);
+$buttonCambiarADolarOficial.addEventListener("click", handleClickCambiarMoneda);
+$buttonCambiarADolarBlue.addEventListener("click", handleClickCambiarMoneda);

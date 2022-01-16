@@ -10,28 +10,28 @@ const handleClickEnviar = (e) => {
         <p>Por favor ingresar valores correctos</p>
         `;
         return;
-    }
+    };
 
     if (hayCamposVacios) {
         $textErrorInputVacios.innerHTML = `
             <p>Por favor completar todos los datos antes de precionar el boton</p>
             `;
         return;
-    }
+    };
 
     if (parseInt($inputCantidadImpuesto.value) > 100) {
         $textErrorValorImpuesto.innerHTML = `
             <p>No se puede poner un impuesto del mas de 100%</p>    
             `;
         return;
-    }
+    };
 
     if (parseInt($inputCantidadDescuento.value) > 100) {
         $textErrorValorDescuento.innerHTML = `
             <p>No se puede poner un descuento del mas de 100%</p>    
             `;
         return;
-    }
+    };
 
     $textErrorInputVacios.innerHTML = ``;
     $textErrorValorDescuento.innerHTML = ``;
@@ -64,18 +64,10 @@ const handleClickEnviar = (e) => {
     pintarRows(valoresFinal, monedaActual)
 };
 
-const handleClickPeso = () => {
-    monedaActual = "ARS"
+const handleClickCambiarMoneda = (e) => {
+    const el = e.target
+    const moneda = el.getAttribute("data-moneda")
+    monedaActual = moneda
     localStorage.setItem("moneda", monedaActual)
     pintarRows(valoresFinal, monedaActual)
 };
-const handleClickDolarOficial = () => {
-    monedaActual = "USD"
-    localStorage.setItem("moneda", monedaActual)
-    pintarRows(valoresFinal, monedaActual)
-};
-const handleClickDolarBlue = () => {
-    monedaActual = "USDB"
-    localStorage.setItem("moneda", monedaActual)
-    pintarRows(valoresFinal, monedaActual)
-}
