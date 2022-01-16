@@ -54,15 +54,21 @@ const handleClickEnviar = (e) => {
     valoresFinal.push(registro);
     localStorage.setItem("precios", JSON.stringify(valoresFinal));
     $formImpuestos.reset();
-    pintarRows(valoresFinal, "ARS")
+    pintarRows(valoresFinal, monedaActual)
 };
 
 const handleClickPeso = () => {
-    pintarRows(valoresFinal, "ARS")
+    monedaActual = "ARS"
+    localStorage.setItem("moneda", monedaActual)
+    pintarRows(valoresFinal, monedaActual)
 };
 const handleClickDolarOficial = () => {
-    pintarRows(valoresFinal, "USD")
+    monedaActual = "USD"
+    localStorage.setItem("moneda", monedaActual)
+    pintarRows(valoresFinal, monedaActual)
 };
 const handleClickDolarBlue = () => {
-    pintarRows(valoresFinal, "USDB")
+    monedaActual = "USDB"
+    localStorage.setItem("moneda", monedaActual)
+    pintarRows(valoresFinal, monedaActual)
 }

@@ -15,6 +15,7 @@ let cantidadDeDinero = [];
 let precioConImpuesto = [];
 let precioConDescuento = [];
 let valoresFinal = [];
+let monedaActual = "ARS"
 let dolarOficial = [];
 let dolarBlue = [];
 
@@ -72,14 +73,14 @@ const eliminarDineroCargado = (valoresFinal) => {
       document.getElementById(`valores${indice}`).remove();
       valoresFinal.splice(indice, 1);
       localStorage.setItem("precios", JSON.stringify(valoresFinal));
-      pintarRows(valoresFinal);
+      pintarRows(valoresFinal, monedaActual);
     });
   }
 };
       
       const init = () => {
         valoresFinal = JSON.parse(localStorage.getItem("precios")) || [];
-        
+        monedaActual = localStorage.getItem("moneda") || monedaActual
         fetch(`https://www.dolarsi.com/api/api.php?type=valoresprincipales`)
         .then((response) => response.json())
         .then((data) => {
@@ -88,15 +89,19 @@ const eliminarDineroCargado = (valoresFinal) => {
             );
             dolarOficial = Number(dolar[0][1].casa.venta.replace(",", "."));
             dolarBlue = Number(dolar[1][1].casa.venta.replace(",", "."));
+            pintarRows(valoresFinal, monedaActual)
           });
+
+
         };
         
         init();
         
-        // $(() => {
-        //   $buttonEnviarDatos.on("click", (handleClickEnviar);
-        // });
-        $buttonEnviarDatos.addEventListener(`click`, handleClickEnviar);
+        $(() => {
+          $("#enviarDatos").on("click", handleClickEnviar)
+
+        });
+        // $buttonEnviarDatos.addEventListener(`click`, handleClickEnviar);
         
         $buttonCambiarAPeso.addEventListener("click", handleClickPeso);
         $buttonCambiarADolarOficial.addEventListener("click", handleClickDolarOficial);
