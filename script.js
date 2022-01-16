@@ -7,6 +7,10 @@ const $textErrorValorDescuento = document.getElementById("errorValorDescuento");
 const $buttonEnviarDatos = document.getElementById("enviarDatos");
 const $textErrorInputVacios = document.getElementById("errorInputVacios");
 const $rowMostarDatos = document.getElementById("mostarDatosEnTabla");
+const $buttonCambiarMoneda = document.getElementById("buttonCambiarMoneda");
+const $buttonCambiarAPeso = document.getElementById("buttonCambiarAPeso");
+const $buttonCambiarADolarOficial = document.getElementById("buttonCambiarADolarOficial");
+const $buttonCambiarADolarBlue = document.getElementById("buttonCambiarADolarBlue");
 
 let cantidadDeDinero = [];
 let precioConImpuesto = [];
@@ -28,21 +32,25 @@ const pintarRows = (valoresFinal) => {
       </tr>
       `;
   });
-  $rowMostarDatos.innerHTML += `
-    <div>
-    <tr id="totalDatos">
-    <td id="totalDinero">Total:$${calcularTotal(valoresFinal, "dinero")}</td>
-    <td id="totalImpuestos">Total:$${calcularTotal(
-      valoresFinal,
-      "impuesto"
-    )}</td>
-      <td id="totalDescuento">Total:$${calcularTotal(
+  if(valoresFinal.length){
+    $rowMostarDatos.innerHTML += `
+      <div>
+      <tr id="totalDatos">
+      <td id="totalDinero">Total:$${calcularTotal(valoresFinal, "dinero")}</td>
+      <td id="totalImpuestos">Total:$${calcularTotal(
         valoresFinal,
-        "descuento"
+        "impuesto"
       )}</td>
-        </tr>
-        </div>
-        `;
+        <td id="totalDescuento">Total:$${calcularTotal(
+          valoresFinal,
+          "descuento"
+        )}</td>
+        <td class="vacio"> </td>
+        <td class="vacio"> </td>
+          </tr>
+          </div>
+          `;
+  }
 
   eliminarDineroCargado(valoresFinal);
 };
@@ -59,37 +67,43 @@ const eliminarDineroCargado = (valoresFinal) => {
   }
 };
 
+
 // const cambiarADolares = (valoresFinal) => {
-//   for (indice in valoresFinal) {
-//     document.getElementById(`cambiarADolarButton${indice}`).addEventListener("click", () => {
-//       $rowMostarDatos.innerHTML += `
-//       <tr id="valores${indice}">
-//         <td id="dinero${indice}">$${calcularPrecioDolar(dolarOficial, cantidadDeDinero)}</td>
-//         <td id="impuesto${indice}">$${calcularPrecioDolar(dolarOficial, precioConImpuesto)}</td>
-//         <td id="descuento${indice}">$${calcularPrecioDolar(dolarOficial, precioConDescuento)}</td>
-//         <td id="eliminar${indice}" ><button class="btn btn-danger" id="eliminarDineroCargadoButton${indice}">Eliminar</button></td>
-//       <td id="cambiarAPeso${indice}"><button class="btn btn-dark id="cambiarAPesoButton${indice}">$ARS</button></td>
-//       `
-//     });
-//   };
-// };
-
-// cambiarADolares(valoresFinal);
-
-const init = () => {
-  valoresFinal = JSON.parse(localStorage.getItem("precios")) || [];
-
-  fetch(`https://www.dolarsi.com/api/api.php?type=valoresprincipales`)
-    .then((response) => response.json())
-    .then((data) => {
-      let dolar = Object.entries(data).filter(
-        (dolar) => dolar[0] === "0" || dolar[0] === "1"
-      );
-      dolarOficial = dolar[0][1].casa.venta.replace(",", ".");
-      dolarBlue = dolar[1][1].casa.venta.replace(",", ".");
-    });
-};
-
-init();
-
-$buttonEnviarDatos.addEventListener(`click`, handleClickEnviar);
+  //   for (indice in valoresFinal) {
+    //     document.getElementById(`cambiarADolarButton${indice}`).addEventListener("click", () => {
+      //       $rowMostarDatos.innerHTML += `
+      //       <tr id="valores${indice}">
+      //         <td id="dinero${indice}">$${calcularPrecioDolar(dolarOficial, cantidadDeDinero)}</td>
+      //         <td id="impuesto${indice}">$${calcularPrecioDolar(dolarOficial, precioConImpuesto)}</td>
+      //         <td id="descuento${indice}">$${calcularPrecioDolar(dolarOficial, precioConDescuento)}</td>
+      //         <td id="eliminar${indice}" ><button class="btn btn-danger" id="eliminarDineroCargadoButton${indice}">Eliminar</button></td>
+      //       <td id="cambiarAPeso${indice}"><button class="btn btn-dark id="cambiarAPesoButton${indice}">$ARS</button></td>
+      //       `
+      //     });
+      //   };
+      // };
+      
+      // cambiarADolares(valoresFinal);
+      
+      const init = () => {
+        valoresFinal = JSON.parse(localStorage.getItem("precios")) || [];
+        
+        fetch(`https://www.dolarsi.com/api/api.php?type=valoresprincipales`)
+        .then((response) => response.json())
+        .then((data) => {
+          let dolar = Object.entries(data).filter(
+            (dolar) => dolar[0] === "0" || dolar[0] === "1"
+            );
+            dolarOficial = dolar[0][1].casa.venta.replace(",", ".");
+            dolarBlue = dolar[1][1].casa.venta.replace(",", ".");
+          });
+        };
+        
+        init();
+        
+        
+        // $(() => {
+        //   $buttonEnviarDatos.click(handleClickEnviar);
+        // });
+        $buttonEnviarDatos.addEventListener(`click`, handleClickEnviar);
+        // $buttonCambiarMoneda.addEventListener("click", handleClickCambiarMoneda)
