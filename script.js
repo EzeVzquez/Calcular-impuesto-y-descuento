@@ -31,34 +31,28 @@ const pintarRows = (valoresFinal, moneda) => {
     let precioDolarImpuesto;
     let precioDolarDescuento;
 
-    if(moneda == "ARS"){
+    if (moneda == "ARS") {
       $rowMostarDatos.innerHTML += crearRow(indice, valor.dinero, valor.impuesto, valor.descuento, moneda);
-    } else if(moneda == "USD") {
+    } else if (moneda == "USD") {
       precioDolarDinero = calcularPrecioDolar(dolarOficial, valor.dinero);
       precioDolarImpuesto = calcularPrecioDolar(dolarOficial, valor.impuesto);
       precioDolarDescuento = calcularPrecioDolar(dolarOficial, valor.descuento);
-      $rowMostarDatos.innerHTML += crearRow(indice,precioDolarDinero, precioDolarImpuesto, precioDolarDescuento, moneda);
+      $rowMostarDatos.innerHTML += crearRow(indice, precioDolarDinero, precioDolarImpuesto, precioDolarDescuento, moneda);
     } else {
       precioDolarDinero = calcularPrecioDolar(dolarBlue, valor.dinero);
       precioDolarImpuesto = calcularPrecioDolar(dolarBlue, valor.impuesto);
       precioDolarDescuento = calcularPrecioDolar(dolarBlue, valor.descuento);
-      $rowMostarDatos.innerHTML += crearRow(indice,precioDolarDinero, precioDolarImpuesto, precioDolarDescuento, "Blue");
-    } 
+      $rowMostarDatos.innerHTML += crearRow(indice, precioDolarDinero, precioDolarImpuesto, precioDolarDescuento, "Blue");
+    }
   });
   //FIXME:arreglar total con base a la moneda
-  if(valoresFinal.length){
+  if (valoresFinal.length) {
     $rowMostarDatos.innerHTML += `
       <div>
       <tr id="totalDatos">
       <td id="totalDinero">Total:$${calcularTotal(valoresFinal, "dinero")}</td>
-      <td id="totalImpuestos">Total:$${calcularTotal(
-        valoresFinal,
-        "impuesto"
-      )}</td>
-        <td id="totalDescuento">Total:$${calcularTotal(
-          valoresFinal,
-          "descuento"
-        )}</td>
+      <td id="totalImpuestos">Total:$${calcularTotal(valoresFinal,"impuesto")}</td>
+        <td id="totalDescuento">Total:$${calcularTotal(valoresFinal,"descuento")}</td>
         <td class="vacio"> </td>
         <td class="vacio"> </td>
           </tr>
@@ -79,32 +73,32 @@ const eliminarDineroCargado = (valoresFinal) => {
     });
   }
 };
-      
-      const init = () => {
-        valoresFinal = JSON.parse(localStorage.getItem("precios")) || [];
-        monedaActual = localStorage.getItem("moneda") || monedaActual
-        fetch(`https://www.dolarsi.com/api/api.php?type=valoresprincipales`)
-        .then((response) => response.json())
-        .then((data) => {
-          let dolar = Object.entries(data).filter(
-            (dolar) => dolar[0] === "0" || dolar[0] === "1"
-            );
-            dolarOficial = Number(dolar[0][1].casa.venta.replace(",", "."));
-            dolarBlue = Number(dolar[1][1].casa.venta.replace(",", "."));
-            pintarRows(valoresFinal, monedaActual)
-          });
+
+const init = () => {
+  valoresFinal = JSON.parse(localStorage.getItem("precios")) || [];
+  monedaActual = localStorage.getItem("moneda") || monedaActual
+  fetch(`https://www.dolarsi.com/api/api.php?type=valoresprincipales`)
+    .then((response) => response.json())
+    .then((data) => {
+      let dolar = Object.entries(data).filter(
+        (dolar) => dolar[0] === "0" || dolar[0] === "1"
+      );
+      dolarOficial = Number(dolar[0][1].casa.venta.replace(",", "."));
+      dolarBlue = Number(dolar[1][1].casa.venta.replace(",", "."));
+      pintarRows(valoresFinal, monedaActual)
+    });
 
 
-        };
-        
-        init();
-        
-        $(() => {
-          $("#enviarDatos").on("click", handleClickEnviar)
+};
 
-        });
-        // $buttonEnviarDatos.addEventListener(`click`, handleClickEnviar);
-        
-        $buttonCambiarAPeso.addEventListener("click", handleClickPeso);
-        $buttonCambiarADolarOficial.addEventListener("click", handleClickDolarOficial);
-        $buttonCambiarADolarBlue.addEventListener("click", handleClickDolarBlue);
+init();
+
+$(() => {
+  $("#enviarDatos").on("click", handleClickEnviar)
+
+});
+// $buttonEnviarDatos.addEventListener(`click`, handleClickEnviar);
+
+$buttonCambiarAPeso.addEventListener("click", handleClickPeso);
+$buttonCambiarADolarOficial.addEventListener("click", handleClickDolarOficial);
+$buttonCambiarADolarBlue.addEventListener("click", handleClickDolarBlue);
