@@ -47,7 +47,7 @@ const calcularTotal = (datos, tipo) =>
  * @param {} peso
  * @returns Devuelve la multiplicacion del dolar por el peso
  */
-const calcularPrecioDolar = (dolar, peso) => dolar * peso;
+const calcularPrecioDolar = (dolar, peso) => peso / dolar;
 
 const crearRow = (indice, dinero, impuesto, descuento, moneda) => {
   return `     
@@ -55,7 +55,6 @@ const crearRow = (indice, dinero, impuesto, descuento, moneda) => {
     <td id="dinero${indice}">${moneda} $${dinero}</td>
     <td id="impuesto${indice}">${moneda} $${impuesto}</td>
     <td id="descuento${indice}">${moneda} $${descuento}</td>
-    <td></td>
     <td id="eliminar${indice}" ><button class="btn btn-danger" id="eliminarDineroCargadoButton${indice}">Eliminar</button></td>
     </tr>
     `;
