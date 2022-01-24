@@ -55,7 +55,7 @@ const crearRow = (indice, dinero, impuesto, descuento, moneda) => {
     <td id="dinero${indice}">${moneda} $${dinero}</td>
     <td id="impuesto${indice}">${moneda} $${impuesto}</td>
     <td id="descuento${indice}">${moneda} $${descuento}</td>
-    <td id="eliminar${indice}" ><button class="btn btn-danger" id="eliminarDineroCargadoButton${indice}">Eliminar</button></td>
+    <td id="eliminar${indice}" ><button class="button-send table-button" id="eliminarDineroCargadoButton${indice}">Eliminar</button></td>
     </tr>
     `;
 };
