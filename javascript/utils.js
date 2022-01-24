@@ -60,19 +60,37 @@ const crearRow = (indice, dinero, impuesto, descuento, moneda) => {
     `;
 };
 
-const crearRowTotal = (dinero, impuesto, descuento, moneda) => {
-  return `
-  <div>
-  <tr id="totalDatos">
-  <td id="totalDinero">Total:${moneda} $${dinero}</td>
-  <td id="totalImpuestos">Total:${moneda} $${impuesto}</td>
-    <td id="totalDescuento">Total:${moneda} $${descuento}</td>
-    <td class="vacio"> </td>
-    <td class="vacio"> </td>
-      </tr>
-      </div>
-  `;
+const prenderDarkMode = () => {
+  $buttonSwitchDarkMode.classList.add("active");
+  document.body.classList.add("dark");
+  localStorage.setItem("darkMode", "encendido");
 };
+
+const apagarDarkMode = () => {
+  document.body.classList.remove("dark");
+  $buttonSwitchDarkMode.classList.remove("active");
+  localStorage.setItem("darkMode", null);
+};
+
+const guardarDarkMode = () => {
+  if (darkMode === "encendido") {
+    prenderDarkMode();
+  }
+};
+
+// const crearRowTotal = (dinero, impuesto, descuento, moneda) => {
+//   return `
+//   <div>
+//   <tr id="totalDatos">
+//   <td id="totalDinero">Total:${moneda} $${dinero}</td>
+//   <td id="totalImpuestos">Total:${moneda} $${impuesto}</td>
+//     <td id="totalDescuento">Total:${moneda} $${descuento}</td>
+//     <td class="vacio"> </td>
+//     <td class="vacio"> </td>
+//       </tr>
+//       </div>
+//   `;
+// };
 
 const crearRegistro = (dinero, impuesto, descuento) => {
   return {

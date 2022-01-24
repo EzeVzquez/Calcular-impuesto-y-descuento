@@ -1,12 +1,12 @@
 //TODO: Hacer el sort de los valores
 
+const $buttonSwitchDarkMode =document.getElementById("switch")
 const $formImpuestos = document.getElementById("formImpuestos");
 const $inputCantidadDinero = document.getElementById("precio");
 const $inputCantidadImpuesto = document.getElementById("impuesto");
 const $textErrorValorImpuesto = document.getElementById("errorValorImpuesto");
 const $inputCantidadDescuento = document.getElementById("descuento");
 const $textErrorValorDescuento = document.getElementById("errorValorDescuento");
-const $buttonEnviarDatos = document.getElementById("enviarDatos");
 const $textErrorInputVacios = document.getElementById("errorInputVacios");
 const $rowMostarDatos = document.getElementById("mostarDatosEnTabla");
 const $buttonCambiarAPeso = document.getElementById("buttonCambiarAPeso");
@@ -20,6 +20,8 @@ let valoresFinal = [];
 let monedaActual = "ARS"
 let dolarOficial = [];
 let dolarBlue = [];
+
+let darkMode = localStorage.getItem(`darkMode`)
 
 // Valor moneda string ARS,USD,USDB
 
@@ -46,9 +48,9 @@ const pintarRows = (valoresFinal, moneda) => {
     }
   });
   //FIXME:arreglar total con base a la moneda
-  if (valoresFinal.length) {
+  // if (valoresFinal.length) {
 
-  };
+  // };
   eliminarDineroCargado(valoresFinal);
 };
 
@@ -80,11 +82,13 @@ const init = () => {
 };
 
 init();
+guardarDarkMode();
 
 $(() => {
   $("#enviarDatos").on("click", handleClickEnviar)
 });
-// $buttonEnviarDatos.addEventListener(`click`, handleClickEnviar);
+
+$buttonSwitchDarkMode.addEventListener("click", handleClickDarkMode)
 
 $buttonCambiarAPeso.addEventListener("click", handleClickCambiarMoneda);
 $buttonCambiarADolarOficial.addEventListener("click", handleClickCambiarMoneda);

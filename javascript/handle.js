@@ -1,3 +1,15 @@
+
+const handleClickDarkMode = () => {
+    darkMode = localStorage.getItem("darkMode");
+
+    if (darkMode !== "encendido") {
+        prenderDarkMode();
+    } else {
+        apagarDarkMode();
+    };
+}
+
+
 const handleClickEnviar = (e) => {
     e.preventDefault();
 
