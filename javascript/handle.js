@@ -26,7 +26,7 @@ const handleClickEnviar = (e) => {
 
     if (hayCamposVacios) {
         $textErrorInputVacios.innerHTML = `
-            <p>Por favor completar todos los datos antes de precionar el boton</p>
+            <p>Por favor completar todos los datos antes de presionar el boton</p>
             `;
         return;
     };

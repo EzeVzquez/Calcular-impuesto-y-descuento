@@ -119,6 +119,10 @@ body.dark button.button-send {
     color: rgba(242, 242, 242, 0.9);
 }
 
+body.dark p {
+    color: rgba(242, 242, 242, 0.5);
+}
+
 body.dark table {
     background-color: #171717;
     color: black;
