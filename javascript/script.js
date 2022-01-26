@@ -1,5 +1,4 @@
-
-const $buttonSwitchDarkMode =document.getElementById("switch")
+const $buttonSwitchDarkMode = document.getElementById("switch")
 const $formImpuestos = document.getElementById("formImpuestos");
 const $inputCantidadDinero = document.getElementById("precio");
 const $inputCantidadImpuesto = document.getElementById("impuesto");
@@ -77,10 +76,10 @@ const init = () => {
       pintarRows(valoresFinal, monedaActual)
       $textMostarDolar.innerHTML = mostarValorDolar(dolarOficial, dolarBlue);
     });
-  };
+};
 
- 
-  
+
+
 init();
 guardarDarkMode();
 

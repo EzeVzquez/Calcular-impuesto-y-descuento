@@ -54,7 +54,7 @@
     margin-bottom: 50px;
 }
 
-.form-container{
+.form-container {
     margin-bottom: 50px;
 }
 
@@ -85,7 +85,7 @@
     font-weight: 500;
 }
 
-.mostrarDolar__precio{
+.mostrarDolar__precio {
     font-weight: bolder;
 }
 
@@ -147,7 +147,7 @@ body.dark button.button-send {
 }
 
 body.dark .mostrarDolar {
-    border-color: rgba(242, 242, 242, 0.7) ;
+    border-color: rgba(242, 242, 242, 0.7);
 }
 
 body.dark p {
@@ -178,11 +178,11 @@ body.dark .dropdown .dropdown-cambioDolar {
     background-color: #171717;
 }
 
-body.dark .li-dropdown a{
+body.dark .li-dropdown a {
     color: rgba(242, 242, 242, 0.5);
 }
 
-body.dark .li-dropdown a:hover{
+body.dark .li-dropdown a:hover {
     background-color: rgb(60, 60, 60);
     color: rgba(242, 242, 242, 0.9);
 }

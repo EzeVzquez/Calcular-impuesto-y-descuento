@@ -1,4 +1,3 @@
-
 const handleClickDarkMode = () => {
     darkMode = localStorage.getItem("darkMode");
 
@@ -26,21 +25,21 @@ const handleClickEnviar = (e) => {
 
     if (hayCamposVacios) {
         $textErrorInputVacios.innerHTML = `
-            <p>Por favor completar todos los datos antes de presionar el boton</p>
+            <p>Por favor completar todos los datos antes de presionar el botón</p>
             `;
         return;
     };
 
     if (parseInt($inputCantidadImpuesto.value) > 100) {
         $textErrorValorImpuesto.innerHTML = `
-            <p>No se puede poner un impuesto del mas de 100%</p>    
+            <p>No se puede poner un impuesto del más de 100%</p>    
             `;
         return;
     };
 
     if (parseInt($inputCantidadDescuento.value) > 100) {
         $textErrorValorDescuento.innerHTML = `
-            <p>No se puede poner un descuento del mas de 100%</p>    
+            <p>No se puede poner un descuento del más de 100%</p>    
             `;
         return;
     };
