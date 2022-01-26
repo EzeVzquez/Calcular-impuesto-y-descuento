@@ -49,6 +49,15 @@
     color: #fff;
 }
 
+.title {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.form-container{
+    margin-bottom: 50px;
+}
+
 .button-send {
     background-color: #4caf50;
     border: none;
@@ -60,6 +69,24 @@
     display: inline-block;
     font-size: 16px;
     border-radius: 5px;
+}
+
+.mostrarDolar {
+    border: ridge;
+    display: grid;
+    width: 250px;
+    margin: 25px auto;
+    padding: 15px 15px;
+    border-color: black;
+}
+
+.mostrarDolar p {
+    text-align: center;
+    font-weight: 500;
+}
+
+.mostrarDolar__precio{
+    font-weight: bolder;
 }
 
 .dropdown-button {
@@ -119,6 +146,10 @@ body.dark button.button-send {
     color: rgba(242, 242, 242, 0.9);
 }
 
+body.dark .mostrarDolar {
+    border-color: rgba(242, 242, 242, 0.7) ;
+}
+
 body.dark p {
     color: rgba(242, 242, 242, 0.5);
 }
@@ -141,6 +172,19 @@ body.dark table button.dropdown-button__change {
     background-color: rgba(76, 175, 80, 0.4);
     color: rgba(242, 242, 242, 0.9);
     ;
+}
+
+body.dark .dropdown .dropdown-cambioDolar {
+    background-color: #171717;
+}
+
+body.dark .li-dropdown a{
+    color: rgba(242, 242, 242, 0.5);
+}
+
+body.dark .li-dropdown a:hover{
+    background-color: rgb(60, 60, 60);
+    color: rgba(242, 242, 242, 0.9);
 }
 
 body.dark table td {

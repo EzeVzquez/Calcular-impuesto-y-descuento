@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Caluladora de impuestos</title>
+  <title>Calculadora de impuestos</title>
   <!-- FONT AWESOME -->
   <script src="https://kit.fontawesome.com/5e0471a9fa.js" crossorigin="anonymous"></script>
   <!-- CSS -->
@@ -27,65 +27,36 @@
   </button>
   </div>
   <div class="container pt-3 form-container">
-    <h1 class="title">Calcular Impuesto</h1>
+    <h1 class="title">Calculadora de impuestos</h1>
     <form class="form-wrapper" id="formImpuestos" action="">
-      <div class="mb-3 form-input__container">
+      <div class="mb-3 form-input__container col-md-6 offset-md-3">
         <label for="Modelo" class="form-label">Coloque una cantidad de dinero "$ARS"</label>
         <input class="form-control" id="precio" type="number" placeholder="Ingrese la cantidad de dinero" />
       </div>
-      <div class="mb-3 form-input__container">
+      <div class="mb-3 form-input__container col-md-6 offset-md-3">
         <label for="Marca" class="form-label">Coloque el impuesto "%" que quiere aplicar</label>
         <input class="form-control" id="impuesto" type="number" placeholder="Ingrese el impuesto" />
         <div id="errorValorImpuesto"></div>
       </div>
-      <div class="mb-3 form-input__container">
+      <div class="mb-3 form-input__container col-md-6 offset-md-3">
         <label for="Precio" class="form-label">Coloque el descuento "%" que quiere aplicar</label>
         <input class="form-control" id="descuento" type="number" placeholder="Ingrese el descuento " />
         <div class="errorValorDescuento" id="errorValorDescuento"></div>
       </div>
-      <button class="mb-3 button-send" id="enviarDatos">Enviar datos</button>
+      <button class="mb-100 button-send col-md-6 offset-md-3" id="enviarDatos">Crear registro</button>
       <div id="errorInputVacios"></div>
+      <div class="mostrarDolar" id="mostarDolar"></div>
     </form>
   </div>
   <div class="container table-container">
     <table class="table table-wrapper">
       <thead class="theadDinero table-thead">
         <tr class="table-tr">
-          <th scope="col">
-            <div class="dropdown">
-              <button class="dropdown-toggle dropdown-button" id="buttonCambiarMoneda" type="button"
-                id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                Dinero ingresado
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" href="#">Ordenar de mayor a menor</a></li>
-                <li><a class="dropdown-item" href="#">Ordenar de menor a mayor</a></li>
-              </ul>
-            </div>
+          <th scope="col"> <p>Dinero ingresado</p>
           </th>
-          <th scope="col">
-            <div class="dropdown">
-              <button class="dropdown-toggle dropdown-button" id="buttonCambiarMoneda" type="button"
-                id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                Dinero con impuesto aplicado
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" href="#">Ordenar de mayor a menor</a></li>
-                <li><a class="dropdown-item" href="#">Ordenar de menor a mayor</a></li>
-              </ul>
-            </div>
+          <th scope="col"> <p>Dinero con impuesto aplicado</p>
           </th>
-          <th scope="col">
-            <div class="dropdown">
-              <button class="dropdown-toggle dropdown-button" id="buttonCambiarMoneda" type="button"
-                id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                Dinero con descuento aplicado
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" href="#">Ordenar de mayor a menor</a></li>
-                <li><a class="dropdown-item" href="#">Ordenar de menor a mayor</a></li>
-              </ul>
-            </div>
+          <th scope="col"> <p>Dinero con descuento aplicado</p>
           </th>
           <th scope="col">
             <div class="dropdown">
@@ -93,11 +64,11 @@
                 id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                 Cambiar Moneda
               </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" id="buttonCambiarAPeso" href="#" data-moneda="ARS">Peso Argentino</a></li>
-                <li><a class="dropdown-item" id="buttonCambiarADolarOficial" href="#" data-moneda="USD">Dolar
+              <ul class="dropdown-menu dropdown-cambioDolar" aria-labelledby="dropdownMenuButton1">
+                <li class="li-dropdown"><a class="dropdown-item" id="buttonCambiarAPeso" href="#" data-moneda="ARS">Peso Argentino</a></li>
+                <li class="li-dropdown"><a class="dropdown-item" id="buttonCambiarADolarOficial" href="#" data-moneda="USD">Dólar
                     Oficial</a></li>
-                <li><a class="dropdown-item" id="buttonCambiarADolarBlue" href="#" data-moneda="USDB">Dolar Blue</a>
+                <li class="li-dropdown"><a class="dropdown-item" id="buttonCambiarADolarBlue" href="#" data-moneda="USDB">Dólar Blue</a>
                 </li>
               </ul>
             </div>

@@ -8,7 +8,7 @@ const calcularImpuestos = (valorImpuesto) => 1 + valorImpuesto / 100;
 /**
  *
  * @param {Number} dineroIngresado
- * @param {Function} impuestosIngresado
+ * @param {Number} impuestosIngresado
  * @returns Devuelve el pocentaje del impuesto aplicado en el dinero ingresado por el usuario, se utiliza, en el segundo parametro, calcularImpuesto para que funcione correctamente
  */
 const calcularPrecioConImpuesto = (dineroIngresado, impuestosIngresado) =>
@@ -16,7 +16,7 @@ const calcularPrecioConImpuesto = (dineroIngresado, impuestosIngresado) =>
 
 /**
  *
- * @param {Variable} dineroConImpuesto
+ * @param {Number} dineroConImpuesto
  * @param {Number} descuento
  * @returns Devuelve el descuento a aplicar al valor del usuario con impuestos, en el primer parametro(dineroConImpuesto) se pone el impuesto ya aplicado y en el segundo parametro(descuento) la cantidad de descuento a aplicar.
  */
@@ -25,8 +25,8 @@ const calcularDescuentoSobreImpuesto = (dineroConImpuesto, descuento) =>
 
 /**
  *
- * @param {Variable} dineroConImpuesto
- * @param {Function} descuentoSobrePrecio
+ * @param {Number} dineroConImpuesto
+ * @param {Number} descuentoSobrePrecio
  * @returns Devuelve el descuento ya aplicado en el valor final
  */
 const calcularPrecioFinal = (dineroConImpuesto, descuentoSobrePrecio) =>
@@ -34,7 +34,7 @@ const calcularPrecioFinal = (dineroConImpuesto, descuentoSobrePrecio) =>
 
 /**
  *
- * @param {Variable} datos
+ * @param {String} datos
  * @param {String} tipo
  * @returns Devuelve el total de las filas de datos, va sumando el dinero en una columna, el impuesto en otra y el descuento tambien
  */
@@ -43,22 +43,45 @@ const calcularTotal = (datos, tipo) =>
 
 /**
  *
- * @param {} dolar
- * @param {} peso
+ * @param {Number} dolar
+ * @param {Number} peso
  * @returns Devuelve la multiplicacion del dolar por el peso
  */
 const calcularPrecioDolar = (dolar, peso) => peso / dolar;
 
+/**
+ * 
+ * @param {Number} indice 
+ * @param {Number} dinero 
+ * @param {Number} impuesto 
+ * @param {Number} descuento 
+ * @param {String} moneda 
+ * @returns Devuelve las filas con el registro creado
+ */
 const crearRow = (indice, dinero, impuesto, descuento, moneda) => {
   return `     
     <tr id="valores${indice}">
-    <td id="dinero${indice}">${moneda} $${dinero}</td>
-    <td id="impuesto${indice}">${moneda} $${impuesto}</td>
-    <td id="descuento${indice}">${moneda} $${descuento}</td>
+    <td id="dinero${indice}">${moneda} $${dinero.toFixed(2)}</td>
+    <td id="impuesto${indice}">${moneda} $${impuesto.toFixed(2)}</td>
+    <td id="descuento${indice}">${moneda} $${descuento.toFixed(2)}</td>
     <td id="eliminar${indice}" ><button class="button-send table-button" id="eliminarDineroCargadoButton${indice}">Eliminar</button></td>
     </tr>
     `;
 };
+
+/**
+ * 
+ * @param {Number} dolarOficial 
+ * @param {Number} dolarBlue 
+ * @returns Devuelve los <p> con el valor del dolar Oficial y Blue
+ */
+const mostarValorDolar = (dolarOficial, dolarBlue) => {
+  return `
+      <p>El dólar Oficial esta:<span class="mostarDolar__precio"> $${dolarOficial}</span></p>
+      <p>El dólar Blue esta:<span class="mostarDolar__precio"> $${dolarBlue}</span></p>
+    `
+}
+
 
 const prenderDarkMode = () => {
   $buttonSwitchDarkMode.classList.add("active");
@@ -77,20 +100,6 @@ const guardarDarkMode = () => {
     prenderDarkMode();
   }
 };
-
-// const crearRowTotal = (dinero, impuesto, descuento, moneda) => {
-//   return `
-//   <div>
-//   <tr id="totalDatos">
-//   <td id="totalDinero">Total:${moneda} $${dinero}</td>
-//   <td id="totalImpuestos">Total:${moneda} $${impuesto}</td>
-//     <td id="totalDescuento">Total:${moneda} $${descuento}</td>
-//     <td class="vacio"> </td>
-//     <td class="vacio"> </td>
-//       </tr>
-//       </div>
-//   `;
-// };
 
 const crearRegistro = (dinero, impuesto, descuento) => {
   return {

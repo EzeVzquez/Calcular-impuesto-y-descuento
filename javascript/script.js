@@ -1,4 +1,3 @@
-//TODO: Hacer el sort de los valores
 
 const $buttonSwitchDarkMode =document.getElementById("switch")
 const $formImpuestos = document.getElementById("formImpuestos");
@@ -12,6 +11,7 @@ const $rowMostarDatos = document.getElementById("mostarDatosEnTabla");
 const $buttonCambiarAPeso = document.getElementById("buttonCambiarAPeso");
 const $buttonCambiarADolarOficial = document.getElementById("buttonCambiarADolarOficial");
 const $buttonCambiarADolarBlue = document.getElementById("buttonCambiarADolarBlue");
+const $textMostarDolar = document.getElementById("mostarDolar")
 
 let cantidadDeDinero = [];
 let precioConImpuesto = [];
@@ -47,10 +47,7 @@ const pintarRows = (valoresFinal, moneda) => {
       $rowMostarDatos.innerHTML += crearRow(indice, precioDolarDinero, precioDolarImpuesto, precioDolarDescuento, "Blue");
     }
   });
-  //FIXME:arreglar total con base a la moneda
-  // if (valoresFinal.length) {
 
-  // };
   eliminarDineroCargado(valoresFinal);
 };
 
@@ -78,9 +75,12 @@ const init = () => {
       dolarOficial = Number(dolar[0][1].casa.venta.replace(",", "."));
       dolarBlue = Number(dolar[1][1].casa.venta.replace(",", "."));
       pintarRows(valoresFinal, monedaActual)
+      $textMostarDolar.innerHTML = mostarValorDolar(dolarOficial, dolarBlue);
     });
-};
+  };
 
+ 
+  
 init();
 guardarDarkMode();
 
