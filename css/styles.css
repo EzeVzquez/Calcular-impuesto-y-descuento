@@ -71,6 +71,11 @@
     border-radius: 5px;
 }
 
+.validacionDatos {
+    text-align: center;
+    font-weight: bold;
+}
+
 .mostrarDolar {
     border: ridge;
     display: grid;

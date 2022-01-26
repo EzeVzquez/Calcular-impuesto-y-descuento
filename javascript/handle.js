@@ -18,28 +18,28 @@ const handleClickEnviar = (e) => {
 
     if ($inputCantidadDinero.value <= 0 || $inputCantidadImpuesto.value < 0 || $inputCantidadDescuento.value < 0) {
         $textErrorInputVacios.innerHTML = `
-        <p>Por favor ingresar valores correctos</p>
+        <p class="validacionDatos">Por favor ingresar valores correctos</p>
         `;
         return;
     };
 
     if (hayCamposVacios) {
         $textErrorInputVacios.innerHTML = `
-            <p>Por favor completar todos los datos antes de presionar el botón</p>
+            <p class="validacionDatos">Por favor completar todos los datos antes de presionar el botón</p>
             `;
         return;
     };
 
     if (parseInt($inputCantidadImpuesto.value) > 100) {
         $textErrorValorImpuesto.innerHTML = `
-            <p>No se puede poner un impuesto del más de 100%</p>    
+            <p class="validacionDatos">No se puede poner un impuesto del más de 100%</p>    
             `;
         return;
     };
 
     if (parseInt($inputCantidadDescuento.value) > 100) {
         $textErrorValorDescuento.innerHTML = `
-            <p>No se puede poner un descuento del más de 100%</p>    
+            <p class="validacionDatos">No se puede poner un descuento del más de 100%</p>    
             `;
         return;
     };
