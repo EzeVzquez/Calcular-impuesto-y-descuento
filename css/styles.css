@@ -1,0 +1,203 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.switch {
+    margin: 10px;
+    background: #343d5b;
+    border-radius: 1000px;
+    border: none;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    outline: none;
+}
+
+.switch::after {
+    content: "";
+    display: block;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    background: #f1f1f1;
+    top: 0;
+    left: 0;
+    right: unset;
+    border-radius: 100px;
+    transition: 0.4s ease all;
+    box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+.active {
+    background: orange;
+    color: black;
+}
+
+.active::after {
+    content: "";
+    left: unset;
+    right: 0;
+}
+
+.switch span {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    display: block;
+    background: none;
+    color: #fff;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.form-container {
+    margin-bottom: 50px;
+}
+
+.button-send {
+    background-color: #4caf50;
+    border: none;
+    color: white;
+    margin: 10px;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.validacionDatos {
+    text-align: center;
+    font-weight: bold;
+}
+
+.mostrarDolar {
+    border: ridge;
+    display: grid;
+    width: 250px;
+    margin: 25px auto;
+    padding: 15px 15px;
+    border-color: black;
+}
+
+.mostrarDolar p {
+    text-align: center;
+    font-weight: 500;
+}
+
+.mostrarDolar__precio {
+    font-weight: bolder;
+}
+
+.dropdown-button {
+    background-color: white;
+    border: none;
+    margin: 4px;
+    padding: 4px 8px;
+}
+
+.dropdown-button__change {
+    background-color: #4caf50;
+    color: white;
+    border-radius: 5px;
+}
+
+.table-button {
+    background-color: #ff392e;
+    padding: 6px 16px;
+    margin: 0;
+}
+
+body {
+    transition: 0.5s ease all;
+}
+
+body.dark {
+    background-color: #171717;
+}
+
+body.dark h1 {
+    color: rgba(242, 242, 242, 0.5);
+}
+
+body.dark label {
+    color: rgba(242, 242, 242, 0.5);
+}
+
+body.dark input {
+    border-color: black;
+    background-color: black;
+    color: rgba(242, 242, 242, 0.7);
+}
+
+body.dark input::placeholder {
+    color: rgba(242, 242, 242, 0.7);
+}
+
+body.dark input:focus {
+    color: rgba(242, 242, 242, 0.7);
+    background-color: black;
+    border-color: black;
+    box-shadow: 0 0 0 0.25rem rgba(242, 242, 242, 0.1);
+}
+
+body.dark button.button-send {
+    background-color: rgba(76, 175, 80, 0.4);
+    color: rgba(242, 242, 242, 0.9);
+}
+
+body.dark .mostrarDolar {
+    border-color: rgba(242, 242, 242, 0.7);
+}
+
+body.dark p {
+    color: rgba(242, 242, 242, 0.5);
+}
+
+body.dark table {
+    background-color: #171717;
+    color: black;
+}
+
+body.dark table th {
+    border-color: black;
+}
+
+body.dark table button {
+    background-color: #171717;
+    color: rgba(242, 242, 242, 0.5);
+}
+
+body.dark table button.dropdown-button__change {
+    background-color: rgba(76, 175, 80, 0.4);
+    color: rgba(242, 242, 242, 0.9);
+    ;
+}
+
+body.dark .dropdown .dropdown-cambioDolar {
+    background-color: #171717;
+}
+
+body.dark .li-dropdown a {
+    color: rgba(242, 242, 242, 0.5);
+}
+
+body.dark .li-dropdown a:hover {
+    background-color: rgb(60, 60, 60);
+    color: rgba(242, 242, 242, 0.9);
+}
+
+body.dark table td {
+    color: rgba(242, 242, 242, 0.5);
+    border-color: black;
+}
+
+body.dark button.table-button {
+    color: rgba(242, 242, 242, 0.9);
+    background-color: rgba(255, 57, 46, 0.4);
+}
